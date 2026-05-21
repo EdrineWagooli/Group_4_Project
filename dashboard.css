@@ -1,0 +1,275 @@
+/* =========================
+   ROOT VARIABLES
+========================= */
+:root {
+  --green-deep: #1a3a2a;
+  --green-mid: #2d6a4f;
+  --green-light: #52b788;
+
+  --gold: #c9a84c;
+  --gold-light: #e6c97a;
+
+  --white: #ffffff;
+
+  --border: rgba(255, 255, 255, 0.14);
+}
+
+
+/* =========================
+   GLOBAL STYLES
+========================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+
+  font-family: 'DM Sans', sans-serif;
+
+  background: var(--green-deep);
+  color: var(--white);
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1rem 2rem;
+
+  background: rgba(10, 25, 16, 0.95);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  text-decoration: none;
+
+  color: var(--white);
+
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+}
+
+.nav-logo .leaf {
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--gold-light);
+}
+
+
+/* =========================
+   HERO SECTION
+========================= */
+.hero {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 4rem 2rem 2rem;
+}
+
+.hero-title {
+  margin-bottom: 1rem;
+
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  line-height: 1.05;
+}
+
+.hero-sub {
+  max-width: 760px;
+  margin-bottom: 2rem;
+
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.75;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.95rem 1.8rem;
+  border-radius: 4px;
+
+  text-decoration: none;
+
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: var(--green-deep);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--white);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+
+/* =========================
+   GENERAL SECTIONS
+========================= */
+.section {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+
+/* =========================
+   STATISTICS SECTION
+========================= */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  padding: 1.5rem;
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+}
+
+.stat-label {
+  margin-bottom: 0.75rem;
+
+  color: rgba(255, 255, 255, 0.5);
+
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.stat-value {
+  color: var(--gold-light);
+
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+
+/* =========================
+   CARD SECTION
+========================= */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(240px, 1fr));
+  gap: 1rem;
+
+  margin-top: 1.5rem;
+}
+
+.card {
+  padding: 1.5rem;
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+}
+
+.card-title {
+  margin-bottom: 0.75rem;
+
+  color: var(--white);
+  font-weight: 700;
+}
+
+.card-text {
+  margin-bottom: 1.2rem;
+
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.7;
+}
+
+.card a {
+  text-decoration: none;
+
+  color: var(--gold);
+  font-weight: 700;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+  padding: 2rem;
+
+  text-align: center;
+
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+}
+
+
+/* =========================
+   RESPONSIVE DESIGN
+=*/
+@media (max-width: 900px) {
+
+  .stats-grid,
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 3rem 1.2rem;
+  }
+
+  .section {
+    padding: 1.5rem 1.2rem;
+  }
+}

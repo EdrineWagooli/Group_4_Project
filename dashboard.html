@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Dashboard — AgriRoute</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <nav>
+      <a href="index.html" class="nav-logo">
+        <span class="leaf">🌿</span> AgriRoute
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="userlogin.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="dashboard.php">Dashboard</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1 class="hero-title">AgriRoute System Dashboard</h1>
+
+      <p class="hero-sub">
+        A centralized command center for your agricultural booking and transport system.
+        View active modules, manage records, and process workflows from one place.
+      </p>
+
+      <div class="btn-group">
+        <a class="btn-primary" href="dashboard.php">Open Admin Dashboard</a>
+
+        <a class="btn-secondary" href="userlogin.html">Sign In</a>
+      </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="section stats-section">
+
+      <article class="stat-card">
+        <h2 class="stat-label">Modules Included</h2>
+
+        <p class="stat-value">6</p>
+
+        <p class="card-text">
+          Customer, Booking, Vessel, Payment, Staff and Account management
+          are available across the system.
+        </p>
+      </article>
+
+      <article class="stat-card">
+        <h2 class="stat-label">Live Access</h2>
+
+        <p class="stat-value">Admin + Staff</p>
+
+        <p class="card-text">
+          Secure login paths for staff and administrators keep your operations
+          controlled and auditable.
+        </p>
+      </article>
+
+      <article class="stat-card">
+        <h2 class="stat-label">Database Ready</h2>
+
+        <p class="stat-value">Yes</p>
+
+        <p class="card-text">
+          Dynamic PHP pages connect to MySQL and store payments, vessels,
+          customer records and staff registrations.
+        </p>
+      </article>
+
+    </section>
+
+    <!-- Modules Section -->
+    <section class="section">
+
+      <div class="card-grid">
+
+        <article class="card">
+          <h2 class="card-title">Customer Management</h2>
+
+          <p class="card-text">
+            Register new customers and track their preferences,
+            contact data and shipping needs.
+          </p>
+
+          <a href="customer.html">Open Customer Module →</a>
+        </article>
+
+        <article class="card">
+          <h2 class="card-title">Booking Control</h2>
+
+          <p class="card-text">
+            Manage cargo bookings and route details, then link payments
+            against confirmed bookings.
+          </p>
+
+          <a href="booking.html">Open Booking Module →</a>
+        </article>
+
+        <article class="card">
+          <h2 class="card-title">Vessel Fleet</h2>
+
+          <p class="card-text">
+            Register boats, trucks and refrigerated vehicles used
+            for agricultural transport.
+          </p>
+
+          <a href="Vessel.html">Open Vessel Module →</a>
+        </article>
+
+        <article class="card">
+          <h2 class="card-title">Payment Records</h2>
+
+          <p class="card-text">
+            Record mobile money, bank transfers, cash payments and
+            keep transaction logs for every booking.
+          </p>
+
+          <a href="payment.html">Open Payment Module →</a>
+        </article>
+
+        <article class="card">
+          <h2 class="card-title">Staff Directory</h2>
+
+          <p class="card-text">
+            Register and manage staff roles, employee IDs, and passport
+            photo records right from the HR module.
+          </p>
+
+          <a href="Staff.html">Open Staff Module →</a>
+        </article>
+
+        <article class="card">
+          <h2 class="card-title">System Login</h2>
+
+          <p class="card-text">
+            Admin and staff access are handled securely with password
+            hashing and role-aware routing.
+          </p>
+
+          <a href="userlogin.html">Go to Login →</a>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    AgriRoute — booking and transport dashboard for Uganda agricultural logistics
+  </footer>
+
+</body>
+</html>
