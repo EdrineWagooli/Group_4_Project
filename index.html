@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AgriRoute — Booking & Transport System</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --green-deep:   #1a3a2a;
+    --green-mid:    #2d6a4f;
+    --green-light:  #52b788;
+    --gold:         #c9a84c;
+    --gold-light:   #e6c97a;
+    --cream:        #f5f0e8;
+    --white:        #ffffff;
+    --text-dark:    #0f1f17;
+    --overlay-dark: rgba(10, 25, 16, 0.62);
+    --overlay-card: rgba(15, 31, 23, 0.78);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--white);
+    background: var(--green-deep);
+    overflow-x: hidden;
+  }
+
+  /* ==================== HERO ==================== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('pineapple.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    background-attachment: fixed;
+    filter: brightness(0.78) saturate(1.1);
+    z-index: 0;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(170deg, rgba(10,25,16,0.55) 0%, rgba(10,25,16,0.45) 40%, rgba(10,25,16,0.72) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem 1.5rem;
+    max-width: 860px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 0.4rem 1.2rem;
+    border-radius: 2px;
+    margin-bottom: 1.6rem;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.08;
+    margin-bottom: 0.4rem;
+  }
+
+  .hero-title span { color: var(--gold-light); font-style: italic; }
+
+  .hero-sub {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: rgba(255,255,255,0.85);
+    margin: 1.1rem 0 2.6rem;
+    line-height: 1.6;
+  }
+
+  .hero-cta-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary, .btn-outline {
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.9rem 2.2rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--green-deep);
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.55);
+  }
+  .btn-outline:hover { border-color: var(--white); transform: translateY(-2px); }
+
+  /* ==================== NAV ==================== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: linear-gradient(to bottom, rgba(10,25,16,0.85), transparent);
+    transition: background 0.3s;
+  }
+  nav.scrolled { background: rgba(10,25,16,0.95); }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .nav-logo .leaf { color: var(--gold); font-size: 1.4rem; }
+
+  .nav-links {
+    display: flex;
+    gap: 1.8rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-links a.admin-link { color: var(--gold); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- ==================== NAVIGATION ==================== -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">
+    <span class="leaf">🌿</span> AgriRoute
+  </a>
+  <ul class="nav-links">
+    <li><a href="customer.html">Customers</a></li>
+    <li><a href="booking.html">Bookings</a></li>
+    <li><a href="Vessel.html">Vessels</a></li>
+    <li><a href="payment.html">Payments</a></li>
+    <li><a href="Staff.html">Staff</a></li>
+    <li><a href="user-login.html">👤 User Login</a></li>
+    <li><a href="adminlogin.html" class="admin-link">🔐 Admin Login</a></li>
+    <li><a href="admin_registration.html" class="admin-link">📝 Admin Registration</a></li>
+  </ul>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Agricultural Booking & Transport System</div>
+    <h1 class="hero-title">Moving Uganda's<br/><span>Harvest Forward</span></h1>
+    <p class="hero-sub">A unified platform connecting farmers, vessels, and logistics — from pickup to delivery, every cargo tracked with precision.</p>
+    
+    <div class="hero-cta-row">
+      <a href="booking.html" class="btn-primary">Book a Shipment</a>
+      <a href="customer.html" class="btn-outline">Register as Customer</a>
+      <a href="user-login.html" class="btn-outline">User Login</a>
+      <a href="adminlogin.html" class="btn-outline" style="border-color:var(--gold); color:var(--gold);">Admin Login</a>
+      <a href="admin_registration.html" class="btn-outline" style="border-color:var(--gold); color:var(--gold);">Admin Registration</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- STATS BAR, MODULES, AGRI FEATURE, HOW IT WORKS, FOOTER (unchanged) -->
+
+<footer>
+  <div class="footer-logo">🌿 AgriRoute</div>
+  <div class="footer-links">
+    <a href="customer.html">Customer</a>
+    <a href="booking.html">Booking</a>
+    <a href="Vessel.html">Vessel</a>
+    <a href="payment.html">Payment</a>
+    <a href="Staff.html">Staff</a>
+    <a href="user-login.html">User Login</a>
+    <a href="adminlogin.html">Admin Login</a>
+    <a href="admin_registration.html">Admin Registration</a>
+  </div>
+  <div class="footer-copy">© 2025 AgriRoute Booking & Transport System. Uganda.</div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+</script>
+</body>
+</html>
