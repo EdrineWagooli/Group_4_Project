@@ -30,14 +30,14 @@ if (!$conn) {
    FETCH TOTAL CUSTOMERS
 ========================================= */
 
-$totalCustomers = 0;
+$totalCustomer = 0;
 
-$customerQuery = "SELECT COUNT(*) AS total FROM customers";
+$customerQuery = "SELECT COUNT(*) AS total FROM customer";
 $customerResult = mysqli_query($conn, $customerQuery);
 
 if ($customerResult) {
     $customerData = mysqli_fetch_assoc($customerResult);
-    $totalCustomers = $customerData['total'];
+    $totalCustomer = $customerData['total'];
 }
 
 
@@ -45,14 +45,14 @@ if ($customerResult) {
    FETCH TOTAL BOOKINGS
 ========================================= */
 
-$totalBookings = 0;
+$totalBooking = 0;
 
-$bookingQuery = "SELECT COUNT(*) AS total FROM bookings";
+$bookingQuery = "SELECT COUNT(*) AS total FROM booking";
 $bookingResult = mysqli_query($conn, $bookingQuery);
 
 if ($bookingResult) {
     $bookingData = mysqli_fetch_assoc($bookingResult);
-    $totalBookings = $bookingData['total'];
+    $totalBooking = $bookingData['total'];
 }
 
 
@@ -60,14 +60,14 @@ if ($bookingResult) {
    FETCH TOTAL PAYMENTS
 ========================================= */
 
-$totalPayments = 0;
+$totalPayment = 0;
 
-$paymentQuery = "SELECT COUNT(*) AS total FROM payments";
+$paymentQuery = "SELECT COUNT(*) AS total FROM payment";
 $paymentResult = mysqli_query($conn, $paymentQuery);
 
 if ($paymentResult) {
     $paymentData = mysqli_fetch_assoc($paymentResult);
-    $totalPayments = $paymentData['total'];
+    $totalPayment = $paymentData['total'];
 }
 
 
@@ -90,14 +90,14 @@ if ($staffResult) {
    FETCH TOTAL VESSELS
 ========================================= */
 
-$totalVessels = 0;
+$totalVessel = 0;
 
-$vesselQuery = "SELECT COUNT(*) AS total FROM vessels";
+$vesselQuery = "SELECT COUNT(*) AS total FROM vessel";
 $vesselResult = mysqli_query($conn, $vesselQuery);
 
 if ($vesselResult) {
     $vesselData = mysqli_fetch_assoc($vesselResult);
-    $totalVessels = $vesselData['total'];
+    $totalVessel = $vesselData['total'];
 }
 
 ?>
