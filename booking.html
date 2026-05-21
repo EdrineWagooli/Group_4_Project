@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargo Booking — AgriRoute</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --gd:#1a3a2a;--gm:#2d6a4f;--gl:#52b788;--gold:#c9a84c;--gol:#e6c97a;--w:#fff;
+            --bd:rgba(255,255,255,0.10);--ibg:rgba(255,255,255,0.05);--ib:rgba(255,255,255,0.15);
+        }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+        body{font-family:'DM Sans',sans-serif;background:var(--gd);color:var(--w);min-height:100vh;display:flex;flex-direction:column;}
+        nav{background:rgba(8,22,14,0.97);border-bottom:1px solid var(--bd);padding:0.95rem 2.5rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+        .nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--w);text-decoration:none;display:flex;align-items:center;gap:0.4rem;}
+        .nav-logo .leaf{color:var(--gold);}
+        .nav-links{display:flex;gap:0;list-style:none;}
+        .nav-links a{color:rgba(255,255,255,0.55);text-decoration:none;font-size:0.73rem;letter-spacing:0.09em;text-transform:uppercase;padding:0.5rem 1rem;transition:color 0.2s;border-bottom:2px solid transparent;}
+        .nav-links a:hover{color:var(--gol);}
+        .nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
+        .banner{position:relative;height:190px;display:flex;align-items:flex-end;padding:2rem 2.5rem;overflow:hidden;}
+        .banner-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(0.42) saturate(1.1);}
+        .banner-ov{position:absolute;inset:0;background:linear-gradient(100deg,rgba(8,22,14,0.92) 38%,rgba(8,22,14,0.35));}
+        .banner-content{position:relative;z-index:2;}
+        .eyebrow{font-size:0.6rem;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);margin-bottom:0.45rem;}
+        .banner-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1.1;}
+        .banner-title em{color:var(--gol);font-style:italic;}
+        .banner-sub{font-size:0.78rem;color:rgba(255,255,255,0.55);margin-top:0.35rem;}
+        .wrap{display:flex;flex:1;max-width:1180px;width:100%;margin:0 auto;padding:2rem 1.5rem;gap:1.8rem;}
+        aside{width:210px;flex-shrink:0;display:flex;flex-direction:column;gap:1.2rem;}
+        .s-box{background:rgba(12,28,20,0.9);border:1px solid var(--bd);border-radius:2px;overflow:hidden;}
+        .s-head{background:var(--gm);padding:0.7rem 1.1rem;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+        .s-nav{list-style:none;}
+        .s-nav li a{display:flex;align-items:center;gap:0.65rem;padding:0.7rem 1.1rem;color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.8rem;border-bottom:1px solid var(--bd);transition:all 0.18s;}
+        .s-nav li:last-child a{border-bottom:none;}
+        .s-nav li a:hover{background:rgba(201,168,76,0.07);color:var(--gol);}
+        .s-nav li a.active{background:rgba(201,168,76,0.1);color:var(--gold);border-left:3px solid var(--gold);padding-left:calc(1.1rem - 3px);}
+        .s-tip{padding:1rem 1.1rem;font-size:0.76rem;color:rgba(255,255,255,0.55);line-height:1.65;}
+        .s-tip strong{display:block;color:var(--gl);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;}
+        .s-img{height:120px;background-size:cover;background-position:center;border-top:1px solid var(--bd);}
+        main{flex:1;display:flex;flex-direction:column;gap:1.5rem;}
+        .card{background:rgba(12,28,20,0.95);border:1px solid var(--bd);border-radius:2px;overflow:hidden;}
+        .card-hd{padding:1.3rem 1.8rem;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:flex-start;}
+        .card-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;}
+        .card-sub{font-size:0.75rem;color:rgba(255,255,255,0.4);margin-top:0.15rem;}
+        .req-note{font-size:0.65rem;color:rgba(255,255,255,0.3);}
+        .req-note span{color:var(--gold);}
+        .card-body{padding:1.8rem;}
+        .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.6rem;}
+        .g2{grid-column:span 2;}
+        .sep{grid-column:span 2;display:flex;align-items:center;gap:0.8rem;margin:1rem 0 0.6rem;}
+        .sep span{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);white-space:nowrap;}
+        .sep::after{content:'';flex:1;height:1px;background:var(--bd);}
+        .fg{margin-bottom:1.1rem;}
+        label.fl{display:block;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.48);margin-bottom:0.4rem;font-weight:500;}
+        label.fl .r{color:var(--gold);}
+        input.fi,select.fi{width:100%;background:var(--ibg);border:1px solid var(--ib);border-radius:2px;padding:0.75rem 0.9rem;color:var(--w);font-family:'DM Sans',sans-serif;font-size:0.86rem;outline:none;transition:border-color 0.2s,background 0.2s;}
+        input.fi::placeholder{color:rgba(255,255,255,0.18);}
+        input.fi:focus,select.fi:focus{border-color:var(--gold);background:rgba(201,168,76,0.04);}
+        input.fi[readonly]{background:rgba(201,168,76,0.07);border-color:rgba(201,168,76,0.3);color:var(--gol);font-weight:600;}
+        .hint{font-size:0.65rem;color:rgba(255,255,255,0.3);margin-top:0.28rem;}
+        .btn-p{padding:0.85rem 2.2rem;background:var(--gold);color:var(--gd);font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background 0.2s,transform 0.15s;}
+        .btn-p:hover{background:var(--gol);transform:translateY(-1px);}
+        .btn-s{padding:0.85rem 1.5rem;background:transparent;color:rgba(255,255,255,0.45);font-family:'DM Sans',sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--ib);border-radius:2px;cursor:pointer;transition:all 0.2s;}
+        .btn-s:hover{border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.7);}
+        .ft-note{font-size:0.68rem;color:rgba(255,255,255,0.25);margin-left:auto;}
+        .cost-panel{background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.22);border-radius:2px;padding:1.4rem 1.8rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
+        .cost-label{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.45);}
+        .cost-amount{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gol);}
+        .cost-breakdown{font-size:0.72rem;color:rgba(255,255,255,0.4);display:flex;flex-direction:column;gap:0.25rem;}
+        .cost-breakdown span{display:flex;gap:0.5rem;}
+        .cost-breakdown .lbl{color:rgba(255,255,255,0.35);min-width:110px;}
+        .cost-breakdown .val{color:rgba(255,255,255,0.65);}
+        .rate-table{width:100%;border-collapse:collapse;font-size:0.78rem;}
+        .rate-table th{padding:0.6rem 0.8rem;text-align:left;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--bd);font-weight:500;}
+        .rate-table td{padding:0.6rem 0.8rem;border-bottom:1px solid rgba(255,255,255,0.04);color:rgba(255,255,255,0.65);}
+        .sf{background:rgba(4,12,8,0.98);border-top:1px solid var(--bd);padding:1.2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;font-size:0.7rem;color:rgba(255,255,255,0.28);}
+        .sf a{color:var(--gol);text-decoration:none;}
+        @media(max-width:780px){.wrap{flex-direction:column;}.grid{grid-template-columns:1fr;}.g2,.sep{grid-column:span 1;}aside{width:100%;}}
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-logo"><span class="leaf">🌿</span> AgriRoute</a>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="customer.html">Customer</a></li>
+        <li><a href="booking.html" class="active">Booking</a></li>
+        <li><a href="Vessel.html">Vessel</a></li>
+        <li><a href="payment.html">Payment</a></li>
+        <li><a href="Staff.html">Staff</a></li>
+    </ul>
+</nav>
+
+<div class="banner">
+    <div class="banner-bg" style="background-image:url('pineapple.jpg');background-position:center 35%;"></div>
+    <div class="banner-ov"></div>
+    <div class="banner-content">
+        <div class="eyebrow">Module · Booking</div>
+        <h1 class="banner-title">Cargo <em>Booking</em></h1>
+        <p class="banner-sub">Schedule agricultural cargo transport — cost calculated automatically from weight & route.</p>
+    </div>
+</div>
+
+<div class="wrap">
+    <aside>
+        <div class="s-box">
+            <div class="s-head">Navigation</div>
+            <ul class="s-nav">
+                <li><a href="index.html"> Home</a></li>
+                <li><a href="customer.html"> Customer</a></li>
+                <li><a href="booking.html" class="active"> Booking</a></li>
+                <li><a href="Vessel.html"> Vessel</a></li>
+                <li><a href="payment.html"> Payment</a></li>
+                <li><a href="Staff.html"> Staff</a></li>
+            </ul>
+        </div>
+
+        <div class="s-box">
+            <div class="s-head">Pricing Rates</div>
+            <table class="rate-table">
+                <tr><th>Item</th><th>Rate</th></tr>
+                <tr><td>Base Fee</td><td>UGX 2,000</td></tr>
+                <tr><td>Per KM</td><td>UGX 150</td></tr>
+                <tr><td>Per KG</td><td>UGX 500</td></tr>
+            </table>
+        </div>
+
+        <div class="s-box">
+            <div class="s-img" style="background-image:url('https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=400&q=80');"></div>
+            <div class="s-tip">
+                <strong>Tip</strong>
+                After booking, proceed to <a href="payment.html" style="color:var(--gol);">Payment</a> to record the transaction.
+            </div>
+        </div>
+    </aside>
+
+    <main>
+        <div class="cost-panel" id="costPanel">
+            <div>
+                <div class="cost-label">Estimated Shipment Cost</div>
+                <div class="cost-amount" id="displayCost">UGX 0.00<small>auto-calculated</small></div>
+            </div>
+            <div class="cost-breakdown" id="breakdown">
+                <span><span class="lbl">Base fee:</span><span class="val" id="bd_base">UGX 0</span></span>
+                <span><span class="lbl">Distance cost:</span><span class="val" id="bd_dist">UGX 0</span></span>
+                <span><span class="lbl">Weight cost:</span><span class="val" id="bd_wt">UGX 0</span></span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-hd">
+                <div>
+                    <div class="card-title">New Shipment Booking</div>
+                    <div class="card-sub">Select route, enter cargo weight and confirm dates</div>
+                </div>
+                <div class="req-note"><span>*</span> Required</div>
+            </div>
+            <div class="card-body">
+                <form id="form1" method="post" action="booking.php">
+                    <div class="grid">
+                        <div class="sep"><span>Cargo Details</span></div>
+                        <div class="fg">
+                            <label class="fl" for="quantity">Quantity (KG) <span class="r">*</span></label>
+                            <input class="fi" type="text" id="quantity" name="quantity" placeholder="e.g. 500" oninput="formatQuantity(this); calculate()" required>
+                            <div class="hint">Weight of the agricultural cargo in kilograms.</div>
+                        </div>
+                        <!-- Other fields remain the same -->
+                        <div class="fg">
+                            <label class="fl" for="location">Location / Reference Info <span class="r">*</span></label>
+                            <input class="fi" type="text" id="location" name="location" placeholder="e.g. Farm gate, Warehouse A" required>
+                            <div class="hint">Specify exact pickup landmark or reference point.</div>
+                        </div>
+
+                        <div class="sep"><span>Route</span></div>
+
+                        <div class="fg">
+                            <label class="fl" for="pickup">Pickup Point <span class="r">*</span></label>
+                            <select class="fi" id="pickup" name="pickup" onchange="calculate()" required>
+                                <option value="0">Select pickup location</option>
+                                <option value="51">Bamunanika (51 km)</option>
+                                <option value="70">Butuntumula (70 km)</option>
+                                <option value="41">Kalagala (41 km)</option>
+                                <option value="83">Kamira (83 km)</option>
+                                <option value="51">Katikakamu (51 km)</option>
+                                <option value="72">Kikyusa (72 km)</option>
+                                <option value="64">Luwero (64 km)</option>
+                                <option value="40">Makulubita (40 km)</option>
+                                <option value="38">Nyimbwa (38 km)</option>
+                                <option value="51">Zirobwe (51 km)</option>
+                            </select>
+                        </div>
+                        <div class="fg">
+                            <label class="fl" for="destination">Destination <span class="r">*</span></label>
+                            <select class="fi" id="destination" name="destination" onchange="calculate()" required>
+                                <option value="0">Select destination</option>
+                                <option value="75">Kireka (75 km)</option>
+                                <option value="65.4">Naguru (65.4 km)</option>
+                                <option value="66.4">Ntinda (66.4 km)</option>
+                                <option value="100">Seeta (100 km)</option>
+                            </select>
+                        </div>
+
+                        <div class="fg g2">
+                            <label class="fl" for="cost">Calculated Cost (UGX) <span class="r">*</span></label>
+                            <input class="fi" type="text" id="cost" name="cost" readonly>
+                            <div class="hint">Cost = Base Fee (2,000) + Distance × 150 UGX/km + Weight × 500 UGX/kg</div>
+                        </div>
+
+                        <div class="sep"><span>Schedule</span></div>
+
+                        <div class="fg">
+                            <label class="fl" for="bdate">Booking Date <span class="r">*</span></label>
+                            <input class="fi" type="date" id="bdate" name="bookingdate" required>
+                        </div>
+                        <div class="fg">
+                            <label class="fl" for="deliverydate">Expected Delivery Date <span class="r">*</span></label>
+                            <input class="fi" type="date" id="deliverydate" name="deliverydate" required>
+                            <div class="hint">Minimum 1 day after booking date.</div>
+                        </div>
+                    </div>
+
+                    <div style="border-top:1px solid var(--bd);margin-top:1rem;padding-top:1.2rem;display:flex;gap:0.8rem;align-items:center;">
+                        <button type="submit" class="btn-p">Confirm Booking →</button>
+                        <button type="reset" class="btn-s" onclick="resetCost()">Clear Form</button>
+                        <span class="ft-note">Booking saved to AgriRoute database</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+<footer class="sf">
+    <span>© 2025 <a href="index.html">AgriRoute</a> — Agricultural Booking & Transport System, Uganda</span>
+    <span>Booking Module</span>
+</footer>
+
+<script>
+    document.getElementById("bdate").valueAsDate = new Date();
+
+    function fmt(n){
+        return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    }
+
+    // New function: Format quantity with commas
+    function formatQuantity(input) {
+        let value = input.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+        if (value === '') {
+            input.value = '';
+            return;
+        }
+        input.value = Number(value).toLocaleString('en-US');
+    }
+
+    function calculate(){
+        // Get clean number without commas for calculation
+        let qtyStr = document.getElementById('quantity').value.replace(/,/g, '');
+        var q = parseFloat(qtyStr);
+        var p = parseFloat(document.getElementById('pickup').value);
+        var d = parseFloat(document.getElementById('destination').value);
+
+        var base=2000, rKm=150, rKg=500;
+
+        if(q > 0 && p > 0 && d > 0){
+            var dist = Math.abs(d - p);
+            var distCost = dist * rKm;
+            var wtCost = q * rKg;
+            var total = base + distCost + wtCost;
+
+            document.getElementById('cost').value = fmt(total);
+            document.getElementById('displayCost').innerHTML = 'UGX ' + fmt(total) + '<small>auto-calculated</small>';
+            document.getElementById('bd_base').textContent = 'UGX ' + fmt(base);
+            document.getElementById('bd_dist').textContent = 'UGX ' + fmt(distCost) + ' (' + dist.toFixed(1) + 'km)';
+            document.getElementById('bd_wt').textContent = 'UGX ' + fmt(wtCost) + ' (' + q + 'kg)';
+        } else {
+            document.getElementById('cost').value = '';
+            document.getElementById('displayCost').innerHTML = 'UGX 0.00<small>auto-calculated</small>';
+            document.getElementById('bd_base').textContent = 'UGX 0';
+            document.getElementById('bd_dist').textContent = 'UGX 0';
+            document.getElementById('bd_wt').textContent = 'UGX 0';
+        }
+    }
+
+    function resetCost(){
+        document.getElementById('displayCost').innerHTML = 'UGX 0.00<small>auto-calculated</small>';
+        document.getElementById('bd_base').textContent = 'UGX 0';
+        document.getElementById('bd_dist').textContent = 'UGX 0';
+        document.getElementById('bd_wt').textContent = 'UGX 0';
+        document.getElementById("bdate").valueAsDate = new Date();
+        document.getElementById('cost').value = '';
+        document.getElementById('quantity').value = '';
+    }
+
+    window.onload = calculate;
+</script>
+
+</body>
+</html>
