@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Customer Registration — AgriRoute</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{--gd:#1a3a2a;--gm:#2d6a4f;--gl:#52b788;--gold:#c9a84c;--glo:#e6c97a;--w:#fff;--bd:rgba(255,255,255,.10);--ib:rgba(255,255,255,.05);--ibd:rgba(255,255,255,.15);}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--gd);color:var(--w);min-height:100vh;display:flex;flex-direction:column;}
+
+  /* NAV */
+  nav{background:rgba(10,25,16,.96);border-bottom:1px solid var(--bd);padding:.9rem 2.5rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+  .nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--w);text-decoration:none;display:flex;align-items:center;gap:.4rem;}
+  .nav-logo .leaf{color:var(--gold);}
+  .nav-links{display:flex;gap:1.6rem;list-style:none;}
+  .nav-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;font-weight:500;transition:color .2s;padding:.3rem 0;border-bottom:2px solid transparent;}
+  .nav-links a:hover{color:var(--glo);}
+  .nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+  /* LAYOUT */
+  .page-body{display:flex;flex:1;}
+
+  /* SIDEBAR */
+  aside{width:300px;flex-shrink:0;background:rgba(8,22,15,.92);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:relative;overflow:hidden;}
+  .aside-img{height:220px;background:url('https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?w=600&q=80') center/cover no-repeat;position:relative;flex-shrink:0;}
+  .aside-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,25,16,.3),rgba(10,25,16,.85));}
+  .aside-img-label{position:absolute;bottom:1rem;left:1.2rem;z-index:2;font-family:'Playfair Display',serif;font-size:1rem;font-style:italic;color:rgba(255,255,255,.85);}
+  .aside-content{padding:1.8rem 1.5rem;flex:1;}
+  .aside-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--w);margin-bottom:.4rem;}
+  .aside-desc{font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.65;margin-bottom:1.6rem;}
+  .aside-info{display:flex;flex-direction:column;gap:.9rem;}
+  .info-item{display:flex;align-items:flex-start;gap:.8rem;font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.5;}
+  .info-item .icon{font-size:1.1rem;flex-shrink:0;margin-top:.05rem;}
+  .info-item strong{display:block;color:rgba(255,255,255,.88);font-size:.8rem;}
+  .aside-gold-bar{height:3px;background:linear-gradient(to right,var(--gold),transparent);margin:1.5rem 0;}
+
+  /* MAIN FORM AREA */
+  main{flex:1;padding:3rem 4rem;display:flex;flex-direction:column;justify-content:flex-start;}
+  .form-eyebrow{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;}
+  .form-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1.1;margin-bottom:.4rem;}
+  .form-subtitle{font-size:.84rem;color:rgba(255,255,255,.45);margin-bottom:2rem;line-height:1.55;}
+  .divider{height:1px;background:var(--bd);margin-bottom:2rem;}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.5rem;max-width:680px;}
+  .span-2{grid-column:span 2;}
+  .field-group{margin-bottom:1.3rem;}
+  .field-label{display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.45rem;font-weight:500;}
+  .field-input,.field-select{width:100%;background:var(--ib);border:1px solid var(--ibd);border-radius:2px;padding:.82rem .95rem;color:var(--w);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;transition:border-color .2s,background .2s;appearance:none;}
+  .field-input::placeholder{color:rgba(255,255,255,.22);}
+  .field-input:focus,.field-select:focus{border-color:var(--gold);background:rgba(201,168,76,.04);}
+  .field-select option{background:#1a3a2a;}
+  .section-sep{grid-column:span 2;display:flex;align-items:center;gap:1rem;margin:.6rem 0 .3rem;}
+  .section-sep span{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);white-space:nowrap;}
+  .section-sep::after{content:'';flex:1;height:1px;background:var(--bd);}
+  .btn-submit{background:var(--gold);color:var(--gd);font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:none;border-radius:2px;padding:.95rem 2.5rem;cursor:pointer;transition:background .2s,transform .15s;margin-top:.5rem;}
+  .btn-submit:hover{background:var(--glo);transform:translateY(-1px);}
+  .btn-reset{background:transparent;color:rgba(255,255,255,.4);font-family:'DM Sans',sans-serif;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--ibd);border-radius:2px;padding:.88rem 2rem;cursor:pointer;margin-top:.5rem;margin-left:.7rem;transition:border-color .2s,color .2s;}
+  .btn-reset:hover{border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.7);}
+  .btn-row{display:flex;align-items:center;margin-top:.5rem;}
+  .required-note{font-size:.7rem;color:rgba(255,255,255,.3);margin-top:1.5rem;}
+
+  @media(max-width:900px){.page-body{flex-direction:column;}aside{width:100%;}main{padding:2rem 1.5rem;}.form-grid{grid-template-columns:1fr;}.span-2,.section-sep{grid-column:span 1;}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+  main{animation:fadeUp .5s ease both;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><span class="leaf">🌿</span> AgriRoute</a>
+  <ul class="nav-links">
+    <li><a href="customer.html" class="active">Customer</a></li>
+    <li><a href="booking.html">Booking</a></li>
+    <li><a href="Vessel.html">Vessel</a></li>
+    <li><a href="payment.html">Payment</a></li>
+    <li><a href="Staff.html">Staff</a></li>
+    <li><a href="index.html">← Home</a></li>
+  </ul>
+</nav>
+
+<div class="page-body">
+  <aside>
+    <div class="aside-img">
+      <div class="aside-img-label">Know Your Customer</div>
+    </div>
+    <div class="aside-content">
+      <div class="aside-title">Customer Module</div>
+      <div class="aside-desc">Register farmers, traders and business owners who ship agricultural goods through the AgriRoute network.</div>
+      <div class="aside-gold-bar"></div>
+      <div class="aside-info">
+        <div class="info-item"><span class="icon">📋</span><div><strong>Required Fields</strong>Full name, address, email and telephone number.</div></div>
+        <div class="info-item"><span class="icon">🔗</span><div><strong>Next Step</strong>After registering, proceed to <a href="booking.html" style="color:var(--glo);text-decoration:none;">Booking</a> to create a shipment.</div></div>
+        <div class="info-item"><span class="icon">📞</span><div><strong>Support</strong>+256 800 000 000 &mdash; Mon–Fri, 8am–6pm</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="form-eyebrow">Module 01 — Customer</div>
+    <h1 class="form-title">Register a Customer</h1>
+    <p class="form-subtitle">Add a new farmer, trader or business to the AgriRoute customer database. All fields marked are required.</p>
+    <div class="divider"></div>
+
+    <form method="post" action="customer.php">
+      <div class="form-grid">
+
+        <div class="section-sep"><span>Personal Details</span></div>
+
+        <div class="field-group">
+          <label class="field-label" for="fname">First Name *</label>
+          <input class="field-input" type="text" id="fname" name="First_name" placeholder="e.g. John" required/>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="lname">Last Name *</label>
+          <input class="field-input" type="text" id="lname" name="Last_name" placeholder="e.g. Mukasa" required/>
+        </div>
+
+        <div class="field-group span-2">
+          <label class="field-label" for="addr">Physical Address *</label>
+          <input class="field-input" type="text" id="addr" name="Address" placeholder="District, Town / Village — e.g. Luwero, Bamunanika" required/>
+        </div>
+
+        <div class="section-sep"><span>Contact Information</span></div>
+
+        <div class="field-group">
+          <label class="field-label" for="email">Email Address *</label>
+          <input class="field-input" type="email" id="email" name="Email" placeholder="name@example.com" required/>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="tel">Telephone Number *</label>
+          <input class="field-input" type="tel" id="tel" name="Telephone_number" placeholder="+256 700 000 000" required/>
+        </div>
+
+        <div class="section-sep"><span>Cargo Preference</span></div>
+
+        <div class="field-group">
+          <label class="field-label" for="cargo_type">Primary Cargo Type</label>
+          <select class="field-select" id="cargo_type" name="cargo_type">
+            <option value="">Select cargo type</option>
+            <option>Pineapples</option>
+            <option>Bananas / Matooke</option>
+            <option>Cassava</option>
+            <option>Maize / Grain</option>
+            <option>Vegetables</option>
+            <option>Fish</option>
+            <option>Mixed Produce</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="freq">Shipping Frequency</label>
+          <select class="field-select" id="freq" name="shipping_frequency">
+            <option value="">Select frequency</option>
+            <option>Daily</option>
+            <option>Weekly</option>
+            <option>Bi-weekly</option>
+            <option>Monthly</option>
+            <option>On-demand</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="btn-row">
+        <button type="submit" class="btn-submit">Register Customer →</button>
+        <button type="reset" class="btn-reset">Clear</button>
+      </div>
+      <p class="required-note">* Required fields. Customer data is stored securely in the AgriRoute database.</p>
+    </form>
+  </main>
+</div>
+
+</body>
+</html>
