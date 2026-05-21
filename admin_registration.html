@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Registration — AgriRoute</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --green-deep:   #1a3a2a;
+    --green-mid:    #2d6a4f;
+    --green-light:  #52b788;
+    --gold:         #c9a84c;
+    --gold-light:   #e6c97a;
+    --white:        #ffffff;
+    --border:       rgba(255,255,255,0.12);
+    --input-bg:     rgba(255,255,255,0.06);
+    --input-border: rgba(255,255,255,0.14);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    min-height: 100vh;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--white);
+    background: var(--green-deep);
+  }
+  .layout { display: flex; min-height: 100vh; }
+  .hero-panel {
+    width: 380px;
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 3rem 2.5rem;
+    overflow: hidden;
+  }
+  .hero-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('pineapple.jpg') center 25% / cover no-repeat;
+    filter: brightness(0.65) saturate(1.05);
+    z-index: 0;
+  }
+  .hero-panel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,25,16,0.55), rgba(10,25,16,0.90));
+    z-index: 1;
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .brand { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); text-decoration: none; }
+  .brand .leaf { color: var(--gold); font-size: 1.4rem; }
+  .hero-title { margin-top: 2.3rem; font-family: 'Playfair Display', serif; font-size: 2.2rem; line-height: 1.1; color: var(--white); }
+  .hero-copy { margin-top: 1.25rem; color: rgba(255,255,255,0.75); font-size: 0.95rem; line-height: 1.7; }
+  .hero-note { display: inline-block; margin-top: 1.8rem; padding: 0.85rem 1rem; border: 1px solid rgba(255,255,255,0.16); border-radius: 2px; color: rgba(255,255,255,0.72); font-size: 0.8rem; }
+  .form-panel { flex: 1; background: rgba(11, 27, 18, 0.98); border-left: 1px solid var(--border); display: flex; align-items: center; justify-content: center; padding: 3.5rem 3.5rem; }
+  .form-card { width: 100%; max-width: 560px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 2.5rem; box-shadow: 0 24px 70px rgba(0,0,0,0.18); backdrop-filter: blur(10px); }
+  .form-eyebrow { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .form-title { font-family: 'Playfair Display', serif; font-size: 2.4rem; line-height: 1.05; margin-bottom: 0.75rem; }
+  .form-subtitle { color: rgba(255,255,255,0.6); font-size: 0.95rem; line-height: 1.75; margin-bottom: 2rem; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.5rem; }
+  .span-2 { grid-column: span 2; }
+  .field-group { margin-bottom: 1.4rem; }
+  .field-label { display: block; margin-bottom: 0.45rem; font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+  .field-input { width: 100%; padding: 0.96rem 1rem; border-radius: 4px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--white); font-size: 0.95rem; outline: none; transition: border-color 0.2s, background 0.2s; }
+  .field-input::placeholder { color: rgba(255,255,255,0.3); }
+  .field-input:focus { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+  .btn-primary { width: 100%; padding: 1rem 0; border: none; border-radius: 4px; background: var(--gold); color: var(--green-deep); font-size: 0.95rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background 0.22s, transform 0.15s; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-secondary { width: 100%; padding: 1rem 0; border: 1px solid rgba(255,255,255,0.16); border-radius: 4px; background: transparent; color: rgba(255,255,255,0.8); font-size: 0.95rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; margin-top: 1rem; }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--white); }
+  .form-meta { margin-top: 1.8rem; display: flex; flex-wrap: wrap; gap: 1rem; color: rgba(255,255,255,0.67); font-size: 0.88rem; }
+  .form-meta a { color: var(--gold-light); text-decoration: none; }
+  .form-meta a:hover { text-decoration: underline; }
+  .section-sep { grid-column: span 2; display: flex; align-items: center; gap: 1rem; margin: 1rem 0 0.6rem; }
+  .section-sep span { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+  .section-sep::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  @media (max-width: 980px) { .layout { flex-direction: column; } .hero-panel { width: 100%; padding: 2.5rem 1.75rem; min-height: 240px; } .form-panel { padding: 2rem 1.75rem; } .form-grid { grid-template-columns: 1fr; } .span-2, .section-sep { grid-column: span 1; } }
+  @media (max-width: 640px) { .hero-title { font-size: 1.95rem; } .form-card { padding: 2rem; } }
+</style>
+</head>
+<body>
+<div class="layout">
+  <section class="hero-panel">
+    <div class="hero-content">
+      <a href="index.html" class="brand"><span class="leaf">🌿</span> AgriRoute</a>
+      <h1 class="hero-title">Register a new admin</h1>
+      <p class="hero-copy">Create a secure admin account to manage the AgriRoute booking and transport platform.</p>
+      <p class="hero-note">Use a strong password and keep your credentials safe.</p>
+    </div>
+  </section>
+  <section class="form-panel">
+    <div class="form-card">
+      <div class="form-eyebrow">Admin Registration</div>
+      <h2 class="form-title">Create your admin account</h2>
+      <p class="form-subtitle">Complete the fields below to register and proceed to the admin dashboard.</p>
+      <form method="post" action="admin_registration.php">
+        <div class="section-sep"><span>Personal Details</span></div>
+        <div class="form-grid">
+          <div class="field-group">
+            <label class="field-label" for="first_name">First Name</label>
+            <input class="field-input" type="text" id="first_name" name="first_name" placeholder="First name" required />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="last_name">Last Name</label>
+            <input class="field-input" type="text" id="last_name" name="last_name" placeholder="Last name" required />
+          </div>
+          <div class="field-group span-2">
+            <label class="field-label" for="email">Email Address</label>
+            <input class="field-input" type="email" id="email" name="email" placeholder="name@example.com" required />
+          </div>
+          <div class="field-group span-2">
+            <label class="field-label" for="username">Username</label>
+            <input class="field-input" type="text" id="username" name="username" placeholder="username" required />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="password">Password</label>
+            <input class="field-input" type="password" id="password" name="password" placeholder="Password" required />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="confirm_password">Confirm Password</label>
+            <input class="field-input" type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password" required />
+          </div>
+        </div>
+        <button class="btn-primary" type="submit">Register Admin</button>
+      </form>
+      <button class="btn-secondary" onclick="window.location.href='admin_login.html'">Already have an admin account?</button>
+      <div class="form-meta">
+        <a href="admin_login.html">Admin Login</a>
+        <a href="login.html">User Login</a>
+        <a href="index.html">Home</a>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>
